@@ -1,28 +1,21 @@
-var youngliving = require('./lib/youngliving').youngliving();
+var yl = require('./lib/youngliving').youngliving();
 
 var login_options = {
   password: process.env.YL_PASSWORD,
   member_id: process.env.YL_MEMBER_ID
 }
 
-youngliving.use(login_options); // Store credentials
+// Store credentials
+yl.use({ member_id: process.env.YL_MEMBER_ID,
+         password: process.env.YL_PASSWORD });
 
-var report_options = {
-  "reportid": "all",
-  "periodid": 417,
-  "sortby": "",
-  "sortdesc": 1,
-  "pagenumber": 1,
-  "filters": [
-    {
-      "type": "level.less-or-equal",
-      "value": 1
+var period = yl.get_period(); // or pass optional date parameter for a different period.
+var per_page = 200, page_number = 1;
+
+var handle_all_members = function(err, data) {
+    if(data.pagination.next) {
+      data.pagination.next(handle_all_members);
     }
-  ],
-  "resultsperpage": 100
 }
 
-youngliving.report(report_options, function(err, data){
-  console.log("accounts", data.accounts);
-  console.log(data.pagination.totalrows + ' members');
-});
+yl.all_members(period, per_page, page_number, handle_all_members);
