@@ -18,7 +18,7 @@ yl.use({ member_id: 'YOUR_YL_MEMBER_ID',
          password: 'YOUR_YL_PASSWORD' });
 ```
 
-###Using the API
+##Using the API
 
 Once you've setup the API and/or authenticated, here is the full list of what you can do:
 
@@ -26,7 +26,10 @@ Once you've setup the API and/or authenticated, here is the full list of what yo
 var period = yl.get_period(); // or pass optional date parameter for a different period.
 var per_page = 200, page_number = 1;
 
-var report_callback = function(err, data) {
+var handle_all_members = function(err, data) {
+    // do something with data object.
+    
+    // if there are more results, this will automatically fetch them
     if(data.pagination.next) {
       data.pagination.next(handle_all_members);
     }
