@@ -6,8 +6,7 @@ var login_options = {
 }
 
 // Store credentials
-yl.use({ member_id: process.env.YL_MEMBER_ID,
-         password: process.env.YL_PASSWORD });
+yl.use(login_options);
 
 var period = yl.get_period(); // or pass optional date parameter for a different period.
 var per_page = 200, page_number = 1;
