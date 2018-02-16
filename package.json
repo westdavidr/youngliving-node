@@ -1,6 +1,6 @@
 {
   "name": "youngliving-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NodeJS client library for the Young Living Essential Oils API",
   "main": "./lib/youngliving",
   "scripts": {
